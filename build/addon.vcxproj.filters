@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{739DB09A-CC57-A953-A6CF-F64FA08E4FA7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\addon">
+      <UniqueIdentifier>{D4322C7C-EC74-82D5-5B4F-DFCB967526B5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\addon\gyp_examples">
+      <UniqueIdentifier>{4B52FBC9-29FF-C1F8-FC9C-B4EEC5110CF5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\addon\gyp_examples\6_object_wrap">
+      <UniqueIdentifier>{512F20CC-859E-2F48-8253-A92E54C40048}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\binding.gyp">
+      <Filter>..</Filter>
+    </None>
+    <ClCompile Include="..\addon\gyp_examples\6_object_wrap\myobject.cc">
+      <Filter>..\addon\gyp_examples\6_object_wrap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\addon\gyp_examples\6_object_wrap\addon.cc">
+      <Filter>..\addon\gyp_examples\6_object_wrap</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

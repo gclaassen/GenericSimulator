@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <title>GenSim</title>
+    <link type="text/css" rel="stylesheet" href="../node_modules/jquery-ui-1.11.4.custom/jquery-ui.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/fontello/css/fontello.css" />
+    <link type="text/css" rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" media="screen"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/bootstrap-table/dist/bootstrap-table.min.css" />
+    <link type="text/css" rel="stylesheet" href="../node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/fuelux/css/fuelux.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/jquery-gridster/dist/jquery.gridster.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/jquery-tooltipster/css/tooltipster.css"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/backgrid-0.3.5/lib/backgrid.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/d3.slider/d3.slider.css"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/c3/c3.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/jquery-simple-color-picker/jquery.simplecolorpicker.css"/>
+    <link type="text/css" rel="stylesheet" href="../node_modules/jquery-simple-color-picker/jquery.simplecolorpicker-glyphicons.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/stylesheet.css"/>
+</head>
+<body>
+<!--find a better place for these-->
+<div id="hmi_save_as_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">HMI Configuration Save As..</h4>
+            </div>
+            <div class="modal-body">
+                <div id="save_as_warning_alert" class="alert alert-warning alert-dismissible collapse" role="alert">
+                    <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Warning!</strong> Please choose a appropriate json file before saving.
+                </div>
+                <p>Choose JSON file to save HMI configuration</p>
+                <div class="form-group">
+                    <label for="hmi_save_as_fileInput">File Path:</label>
+                    <input class="filestyle" id="hmi_save_as_fileInput" type="file" accept="text/json">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="hmi_save_as_save" type="button" class="btn btn-primary">Save</button>
+                <button id="hmi_save_as_default_save" type="button" class="btn btn-primary">Save and make default</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="close_instance_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Close current instance.</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="close_application_modal_button" type="button" class="btn btn-danger">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="close_all_instance_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Close all instances.</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="close_all_application_modal_button" type="button" class="btn btn-danger">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--find a better place for these-->
+
+<!-- startup banner -->
+<div id="startup_div" class="hmi" ></div>
+
+<!-- navigation bar and header -->
+<div id="nav_div" class="hmi" ></div>
+
+<!-- communication Div -->
+<div id="comms_div" class="hmi collapse out" ></div>
+
+<!-- simulator console -->
+<div id="hmi_jumbotron" class="hmi collapse out" aria-expanded="false"></div>
+
+<!-- HMI Div -->
+<div id="hmi_div" class="gridster hmi" >
+    <div></div>
+</div>
+
+<!-- HMI shelter Div -->
+<div id="hmi_toolbox_div">
+    <h3><span class="label label-default">HMI Parts Toolbox</span></h3>
+    <ul id="hmi_toolbox_tab" class="nav nav-tabs nav-justified">
+        <li class="active"><a href="#io_events" data-toggle="tab">IO Events</a></li>
+        <li><a href="#viewers" data-toggle="tab">Data Viewers</a></li>
+        <li><a href="#accessories" data-toggle="tab">Accessories</a></li>
+      <!--  <li><a href="#containers" data-toggle="tab">Containers</a></li> -->
+    </ul>
+    <div class="tab-content">
+        <div id="io_events" class="tab-pane fade in active">
+            <div class="btn-group" role="group" aria-label="io events">
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="button">button</button>
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="button_message_bus">scenario button</button>
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="button_script">script button</button>
+             <!--   <button type="button" class="btn btn-custom hmi_toolbox_element" element="button_input">input button</button>
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="button_dropdown">drop down button</button>
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="button_input_dropdown">input button with drop down</button> -->
+            </div>
+        </div>
+        <div id="viewers" class="tab-pane fade">
+            <div class="btn-group" role="group" aria-label="data viewer">
+              <!-- <button type="button" class="btn btn-custom hmi_toolbox_element" element="graph">graph</button> -->
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="gauge">gauge</button>
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="table">table</button>
+              <!--  <button type="button" class="btn btn-custom hmi_toolbox_element" element="text_console">text console</button> -->
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="led">led</button>
+            </div>
+        </div>
+        <div id="accessories" class="tab-pane fade">
+            <div class="btn-group" role="group" aria-label="accessories">
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="text">text</button>
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="label">label</button>
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="image">image</button>
+            </div>
+        </div>
+      <!--  <div id="containers" class="tab-pane fade">
+            <div class="btn-group" role="group" aria-label="containers">
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="tab">tabs</button>
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="panel">panel</button>
+                <button type="button" class="btn btn-custom hmi_toolbox_element" element="carousel">carousel</button>
+            </div>
+        </div> -->
+    </div>
+</div>
+
+<div id="grid_creator_div" class="hmi"></div>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="../node_modules/global/GenSimGlobal.js"></script>
+<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="../node_modules/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../node_modules/d3/d3.min.js"></script>
+<script type="text/javascript" src="../node_modules/d3.slider/d3.slider.js"></script>
+<script type="text/javascript" src="../node_modules/c3/c3.min.js"></script>
+<script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../node_modules/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="../node_modules/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script type="text/javascript" src="../node_modules/fuelux/js/fuelux.min.js"></script>
+<script type="text/javascript" src="../node_modules/jquery-gridster/dist/jquery.gridster.with-extras.min.js"></script>
+<script type="text/javascript" src="../node_modules/jquery-tooltipster/js/jquery.tooltipster.min.js"></script>
+<script type="text/javascript" src="../node_modules/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="../node_modules/backbone/backbone-min.js"></script>
+<script type="text/javascript" src="../node_modules/backgrid/lib/backgrid.js"></script>
+<script type="text/javascript" src="../node_modules/backgrid-extensions/lib/Backgrid.Extensions.min.js"></script>
+<script type="text/javascript" src="../node_modules/jquery-simple-color-picker/jquery.simplecolorpicker.js"></script>
+<script type="text/javascript" src="../js/main.js"></script>
+</body>
+</html>

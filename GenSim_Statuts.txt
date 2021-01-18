@@ -1,0 +1,22 @@
+name: GenSim
+version: 00.08.500
+date: xxxxxxx
+time: xxxxxxx
+description: The Generic Simulator is an application that allows the creation of a generic array of user defined hmi, message definitions, communications and scripts.
+
+TODO:
+Button Data Manipulator: dropdown
+IO Event: message bus
+HMI: Element re-configure
+HMI: Image copy store and display
+Communication: USB - to - CAN
+RECORDER
+IO EVENT: Script Button
+
+Bug List:
+Double and float converters
+bit fields
+button resize
+new child elements pairing on old element configuration
+Data manipulators: Sequence and conversions
+multiple connection always on last connection 
